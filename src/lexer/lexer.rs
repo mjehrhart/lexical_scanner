@@ -133,7 +133,7 @@ pub mod lexer {
                         Some(Token::Undefined)
                     }
                     None => {
-                        println!("Token::Undefined(4)::'None'");
+                        //println!("Token::Undefined(4)::'None'");
                         Some(Token::Undefined)
                     }
                 },
@@ -207,12 +207,12 @@ pub mod lexer {
                     }
                     Some(c) => {
                         //self.expr.next();
-                        println!("Token::Undefined(5)::'None'");
+                        println!("Token::Undefined(5)::'{}'", c);
                         Some(Token::Undefined)
                     }
                     None => {
                         //self.expr.next();
-                        println!("Token::Undefined(6)::'None'");
+                        //println!("Token::Undefined(6)::'None'");
                         Some(Token::Undefined)
                     }
                 },
@@ -261,7 +261,7 @@ pub mod lexer {
                     Some(Token::Character(value))
                 }
                 None => {
-                    println!("Token::Undefined(7)::'None'");
+                    //println!("Token::Undefined(7)::'None'");
                     Some(Token::Undefined)
                 }
             }
