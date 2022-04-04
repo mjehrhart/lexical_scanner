@@ -40,6 +40,7 @@ pub fn test_me() -> Vec<Token> {
         let tokenizer = lexer::lexer::lexer::Tokenizer::new(&tmp);
 
         let mut i = 0;
+        println!("2233");
         //while let Some(token) = tokenizer.next() {
         for token in tokenizer {
             match Some(token) {
