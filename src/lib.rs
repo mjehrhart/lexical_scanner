@@ -7,7 +7,7 @@ mod enums;
 #[warn(missing_docs)]
 mod lexer;
 
-pub fn read_template(path: &str) -> Result<String, std::io::Error> {
+fn read_template(path: &str) -> Result<String, std::io::Error> {
     let mut f = OpenOptions::new()
         .read(true)
         .write(false)
@@ -29,8 +29,7 @@ pub fn read_template(path: &str) -> Result<String, std::io::Error> {
     Ok(page.to_string())
 }
 
-pub fn test_me() -> Vec<Token> {
-    let path = "/Users/matthew/dev/projects/script-homebrew/temp.txt";
+pub fn lexer(path: &str) -> Vec<Token> {
     let this = read_template(path);
 
     if let Ok(page) = this {
@@ -40,13 +39,10 @@ pub fn test_me() -> Vec<Token> {
         let tokenizer = lexer::lexer::lexer::Tokenizer::new(&tmp);
 
         let mut i = 0;
-        println!("2233");
-        //while let Some(token) = tokenizer.next() {
         for token in tokenizer {
             match Some(token) {
                 Some(t) => match t {
                     enums::Token::Undefined => break,
-                    enums::Token::WhiteSpace => {}
                     _ => {
                         //println!("{}. {:?}", i, t);
                         token_container.push(t);
@@ -63,8 +59,6 @@ pub fn test_me() -> Vec<Token> {
 
         return token_container;
     }
-
-    println!("223");
 
     vec![]
 }
