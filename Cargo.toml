@@ -2,7 +2,8 @@
 name = "lexical_scanner"
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/mjehrhart/lexical_scanner"
+description = "A simple lexer which creates over 75 various tokens based on the rust programming language." 
+keywords = ["lexer", "lexical", "lexer scanner", "lexical scanner", "scanner", "tokenizer", "tokens"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
+[dependencies] 
