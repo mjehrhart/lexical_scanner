@@ -1,5 +1,7 @@
 use std::{fs::OpenOptions, io::Read};
 
+use enums::Token;
+
 mod enums;
 #[allow(unused_imports)]
 #[warn(missing_docs)]
@@ -27,7 +29,7 @@ pub fn read_template(path: &str) -> Result<String, std::io::Error> {
     Ok(page.to_string())
 }
 
-pub fn test_me() {
+pub fn test_me() -> Vec<Token> {
     let path = "/Users/matthew/dev/projects/script-homebrew/temp.txt";
     let this = read_template(path);
 
@@ -57,53 +59,59 @@ pub fn test_me() {
                 break;
             }
         }
+
+        return token_container;
     }
+
+    println!("223");
+
+    vec![]
 }
 
 // Unit tests
-    #[cfg(test)]
-    mod unit_test {
-        use crate::{lexer::lexer::lexer::Tokenizer, enums::Token}; 
-        use super::*;
+#[cfg(test)]
+mod unit_test {
+    use super::*;
+    use crate::{enums::Token, lexer::lexer::lexer::Tokenizer};
 
-        #[test]
-        fn test_basic_tokenizer() {
-            let mut tokenizer = Tokenizer::new("Water is healthy!");
-            assert_eq!(tokenizer.next().unwrap(), Token::Word("Water".to_string()));
-            assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
-            assert_eq!(tokenizer.next().unwrap(), Token::Word("is".to_string()));
-            assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
-            assert_eq!(
-                tokenizer.next().unwrap(),
-                Token::Word("healthy".to_string())
-            );
-            assert_eq!(tokenizer.next().unwrap(), Token::Not);
-        }
-
-        #[test]
-        fn test_punctuation_tokenizer() {
-            let mut tokenizer = Tokenizer::new("use super::*;");
-            assert_eq!(tokenizer.next().unwrap(), Token::KW_Use);
-            assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
-            assert_eq!(tokenizer.next().unwrap(), Token::KW_Super);
-            assert_eq!(tokenizer.next().unwrap(), Token::PathSep);
-            assert_eq!(tokenizer.next().unwrap(), Token::Star);
-            assert_eq!(tokenizer.next().unwrap(), Token::Semi);
-        }
-
-        #[test]
-        fn test_numeric_tokenizer() {
-            let mut tokenizer = Tokenizer::new("200 404.4 5_000");
-            assert_eq!(tokenizer.next().unwrap(), Token::Numeric("200".to_string()));
-            assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
-            assert_eq!(
-                tokenizer.next().unwrap(),
-                Token::Floating("404.4".to_string())
-            );
-            assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
-            assert_eq!(
-                tokenizer.next().unwrap(),
-                Token::Floating("5_000".to_string())
-            );
-        }
+    #[test]
+    fn test_basic_tokenizer() {
+        let mut tokenizer = Tokenizer::new("Water is healthy!");
+        assert_eq!(tokenizer.next().unwrap(), Token::Word("Water".to_string()));
+        assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
+        assert_eq!(tokenizer.next().unwrap(), Token::Word("is".to_string()));
+        assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
+        assert_eq!(
+            tokenizer.next().unwrap(),
+            Token::Word("healthy".to_string())
+        );
+        assert_eq!(tokenizer.next().unwrap(), Token::Not);
     }
+
+    #[test]
+    fn test_punctuation_tokenizer() {
+        let mut tokenizer = Tokenizer::new("use super::*;");
+        assert_eq!(tokenizer.next().unwrap(), Token::KW_Use);
+        assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
+        assert_eq!(tokenizer.next().unwrap(), Token::KW_Super);
+        assert_eq!(tokenizer.next().unwrap(), Token::PathSep);
+        assert_eq!(tokenizer.next().unwrap(), Token::Star);
+        assert_eq!(tokenizer.next().unwrap(), Token::Semi);
+    }
+
+    #[test]
+    fn test_numeric_tokenizer() {
+        let mut tokenizer = Tokenizer::new("200 404.4 5_000");
+        assert_eq!(tokenizer.next().unwrap(), Token::Numeric("200".to_string()));
+        assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
+        assert_eq!(
+            tokenizer.next().unwrap(),
+            Token::Floating("404.4".to_string())
+        );
+        assert_eq!(tokenizer.next().unwrap(), Token::WhiteSpace);
+        assert_eq!(
+            tokenizer.next().unwrap(),
+            Token::Floating("5_000".to_string())
+        );
+    }
+}
