@@ -1,10 +1,10 @@
 [package]
 name = "lexical_scanner"
-version = "0.1.7"
+version = "0.1.8"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/mjehrhart/lexical_scanner"
-description = "A simple lexer which creates over 75 various tokens based on the rust programming language." 
+description = "A simple lexer which creates over 75 various tokens based on the rust programming language. This library does not use regex!" 
 keywords = ["lexer", "lexical", "lexer_scanner", "lexical_scanner", "tokenizer"]
 
 [dependencies] 

@@ -4,7 +4,7 @@
 Add this depedency to TOML
 ``` rust
 [dependencies]
-lexical_scanner = "0.1.6"
+lexical_scanner = "0.1.8"
 ```
 
 ## Basic Usage

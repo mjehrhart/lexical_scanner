@@ -416,6 +416,11 @@ pub mod generic {
                     Some("||") => (Some(Token::OrOr), 2),
                     Some("!") => (Some(Token::Not), 1),
                     Some("->") => (Some(Token::RArrow), 2),
+                    Some("///") => (Some(Token::OuterLineDoc("///".to_string())), 3),
+                    Some("//!") => (Some(Token::InnerLineDoc("//!".to_string())), 3), 
+                    Some("/*!") => (Some(Token::InnerBlockDoc("/*!".to_string())), 3),
+                    Some("/**") => (Some(Token::OuterBlockDoc("/**".to_string())), 3), 
+
                     Some("//") => (Some(Token::LineComment("//".to_string())), 2),
                     Some("/*") => (Some(Token::BlockCommentStart("/*".to_string())), 2),
                     Some("*/") => (Some(Token::BlockCommentStop("*/".to_string())), 2),
