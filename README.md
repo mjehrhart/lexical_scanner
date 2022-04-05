@@ -4,7 +4,7 @@
 Add this depedency to TOML
 ``` rust
 [dependencies]
-lexical_scanner = "0.1.8"
+lexical_scanner = "0.1.9"
 ```
 
 ## Basic Usage
@@ -69,6 +69,8 @@ EqEq,
 Ge,
 Gt,
 FatArrow,
+InnerBlockDoc(String),
+InnerLineDoc(String),
 Le,
 LineComment(String),
 Lt,
@@ -77,6 +79,8 @@ MinusEq,
 Or,
 OrEq,
 OrOr,
+OuterBlockDoc(String),
+OuterLineDoc(String),
 Newline,
 Not,
 NotEq,
@@ -154,3 +158,4 @@ KW_While,
 ```
 
 crates.io => https://crates.io/crates/lexical_scanner
+github.com => https://github.com/mjehrhart/lexical_scanner

@@ -67,6 +67,11 @@ pub fn lexer(path: &str) -> Vec<Token> {
             }
         }
 
+        let token_container =
+            lexer::lexer::lexer::Tokenizer::transform_special_tokens_into_raw_byte_tokens(
+                token_container,
+            );
+
         return token_container;
     }
 
@@ -101,6 +106,11 @@ pub fn lexer_as_str(text: &str) -> Vec<Token> {
             None => break,
         }
     }
+
+    let token_container =
+        lexer::lexer::lexer::Tokenizer::transform_special_tokens_into_raw_byte_tokens(
+            token_container,
+        );
 
     return token_container;
 }
