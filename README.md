@@ -8,6 +8,7 @@ lexical_scanner = "0.1.6"
 ```
 
 ## Basic Usage
+The two ways to perform a lexical scan is to pass in file path or pass in a string. Passing in a string is mostly used for testing while passing in a file path is common for every day work. A lexical scanner can produces thousand of tokens very quickly. For this reason, it is best to use a file path.
 ``` rust
 use lexical_scanner;
 
