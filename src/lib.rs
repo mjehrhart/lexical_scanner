@@ -37,8 +37,7 @@ pub fn lexer(path: &str) -> Vec<Token> {
 
         let mut token_container = vec![];
         let tokenizer = lexer::lexer::lexer::Tokenizer::new(&tmp);
-
-        let mut i = 0;
+ 
         for token in tokenizer {
             match Some(token) {
                 Some(t) => match t {
@@ -49,18 +48,34 @@ pub fn lexer(path: &str) -> Vec<Token> {
                     }
                 },
                 None => break,
-            }
-            i += 1;
-
-            if i > 100000 {
-                break;
-            }
+            } 
         }
 
         return token_container;
     }
 
     vec![]
+}
+
+pub fn lexer_as_str(text: &str) -> Vec<Token> {
+ 
+        let mut token_container = vec![];
+        let tokenizer = lexer::lexer::lexer::Tokenizer::new(&text);
+ 
+        for token in tokenizer {
+            match Some(token) {
+                Some(t) => match t {
+                    enums::Token::Undefined => break,
+                    _ => {
+                        //println!("{}. {:?}", i, t);
+                        token_container.push(t);
+                    }
+                },
+                None => break,
+            } 
+        }
+
+        return token_container; 
 }
 
 // Unit tests

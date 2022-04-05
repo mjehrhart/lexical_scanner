@@ -1,7 +1,7 @@
 #[allow(dead_code, unused_imports)]
 pub mod generic {
     use super::*;
-    use crate::enums::{self, Token}; 
+    use crate::enums::{self, Token};
     use crate::lexer::lexer::lexer::Tokenizer;
 
     use std::any::type_name;
@@ -26,7 +26,6 @@ pub mod generic {
     /// ```
     impl<'a> Tokenizer<'a> {
         pub fn new(new_expr: &'a str) -> Self {
-            //println!("Expression == {:?}\n", new_expr);
             Tokenizer {
                 expr: new_expr.chars().peekable(),
                 keywords: Self::load_keywords(),
@@ -244,7 +243,7 @@ pub mod generic {
             }
 
             token_container
-        } 
+        }
     }
 
     pub mod numeric {
