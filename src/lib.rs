@@ -29,7 +29,7 @@ fn read_template(path: &str) -> Result<String, std::io::Error> {
     Ok(page.to_string())
 }
 
-pub fn test2() {
+pub fn test3() {
     println!("{}", 300);
 }
 /// Constructs a vector of tokens.
