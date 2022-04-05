@@ -1,12 +1,13 @@
 use std::{fs::OpenOptions, io::Read};
-
 use enums::Token;
 
-mod enums;
+pub mod lexer;
+pub mod enums;
+
 #[allow(unused_imports)]
 #[warn(missing_docs)]
-mod lexer;
-
+ 
+ 
 fn read_template(path: &str) -> Result<String, std::io::Error> {
     let mut f = OpenOptions::new()
         .read(true)
@@ -29,6 +30,19 @@ fn read_template(path: &str) -> Result<String, std::io::Error> {
     Ok(page.to_string())
 }
 
+/// Constructs a vector of tokens.
+/// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
+/// github page. 
+/// Usually, this is used in debugging and testing.
+/// Example
+/// ``` rust 
+/// pub use lexical_scanner::*;
+/// pub use enums::*;
+/// let path = "./test/test.txt";
+/// let token_list = lexical_scanner::lexer(path);
+/// println!("{:?}, ", token_list);
+/// ```
+/// 
 pub fn lexer(path: &str) -> Vec<Token> {
     let this = read_template(path);
 
@@ -37,7 +51,7 @@ pub fn lexer(path: &str) -> Vec<Token> {
 
         let mut token_container = vec![];
         let tokenizer = lexer::lexer::lexer::Tokenizer::new(&tmp);
- 
+
         for token in tokenizer {
             match Some(token) {
                 Some(t) => match t {
@@ -48,7 +62,7 @@ pub fn lexer(path: &str) -> Vec<Token> {
                     }
                 },
                 None => break,
-            } 
+            }
         }
 
         return token_container;
@@ -57,31 +71,42 @@ pub fn lexer(path: &str) -> Vec<Token> {
     vec![]
 }
 
+/// Constructs a vector of tokens.
+/// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
+/// github page. 
+/// Usually, this is used in debugging and testing.
+/// Example
+/// ``` rust 
+/// pub use lexical_scanner::*;
+/// pub use enums::*;
+/// let text = "The number 5.0 is > 1;";
+/// let token_list = lexical_scanner::lexer_as_str(text); 
+/// ```
+/// 
 pub fn lexer_as_str(text: &str) -> Vec<Token> {
- 
-        let mut token_container = vec![];
-        let tokenizer = lexer::lexer::lexer::Tokenizer::new(&text);
- 
-        for token in tokenizer {
-            match Some(token) {
-                Some(t) => match t {
-                    enums::Token::Undefined => break,
-                    _ => {
-                        //println!("{}. {:?}", i, t);
-                        token_container.push(t);
-                    }
-                },
-                None => break,
-            } 
-        }
+    let mut token_container = vec![];
+    let tokenizer = lexer::lexer::lexer::Tokenizer::new(&text);
 
-        return token_container; 
+    for token in tokenizer {
+        match Some(token) {
+            Some(t) => match t {
+                enums::Token::Undefined => break,
+                _ => {
+                    //println!("{}. {:?}", i, t);
+                    token_container.push(t);
+                }
+            },
+            None => break,
+        }
+    }
+
+    return token_container;
 }
 
 // Unit tests
 #[cfg(test)]
 mod unit_test {
-    use super::*;
+    //zuse super::*;
     use crate::{enums::Token, lexer::lexer::lexer::Tokenizer};
 
     #[test]

@@ -1,0 +1,17 @@
+use std::ops::Deref;
+
+///Token field and description for lexical scanner
+#[allow(
+    dead_code,
+    clippy::upper_case_acronyms,
+    clippy::enum_variant_names,
+    non_camel_case_types
+)]
+
+impl Deref for Token {
+    type Target = Token;
+
+    fn deref(&self) -> &Self::Target {
+        &self
+    }
+}

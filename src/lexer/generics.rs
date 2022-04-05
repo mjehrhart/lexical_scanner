@@ -18,12 +18,7 @@ pub mod generic {
         pub start: usize,
         pub removals: Vec<usize>,
     }
-
-    /// Example
-    /// ```
-    /// let exp = "Water is helpful!";
-    // let mut lexy = Tokenizer::new(exp);
-    /// ```
+ 
     impl<'a> Tokenizer<'a> {
         pub fn new(new_expr: &'a str) -> Self {
             Tokenizer {
