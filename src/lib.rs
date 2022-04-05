@@ -1,13 +1,12 @@
-use std::{fs::OpenOptions, io::Read};
 use enums::Token;
+use std::{fs::OpenOptions, io::Read};
 
-pub mod lexer;
 pub mod enums;
+pub mod lexer;
 
 #[allow(unused_imports)]
 #[warn(missing_docs)]
- 
- 
+
 fn read_template(path: &str) -> Result<String, std::io::Error> {
     let mut f = OpenOptions::new()
         .read(true)
@@ -30,22 +29,22 @@ fn read_template(path: &str) -> Result<String, std::io::Error> {
     Ok(page.to_string())
 }
 
-pub fn test(){
-    println!("{}", 200);
+pub fn test2() {
+    println!("{}", 300);
 }
 /// Constructs a vector of tokens.
 /// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
-/// github page. 
+/// github page.
 /// Usually, this is the main method for generating tokens by passing in a file path to the document you want to perform a lexical scan on.
 /// Example
-/// ``` rust 
+/// ``` rust
 /// pub use lexical_scanner::*;
 /// pub use enums::*;
 /// let path = "./test/test.txt";
 /// let token_list = lexical_scanner::lexer(path);
 /// println!("{:?}, ", token_list);
 /// ```
-/// 
+///
 pub fn lexer(path: &str) -> Vec<Token> {
     let this = read_template(path);
 
@@ -76,16 +75,16 @@ pub fn lexer(path: &str) -> Vec<Token> {
 
 /// Constructs a vector of tokens.
 /// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
-/// github page. 
+/// github page.
 /// Usually, passing in a text string is used for debugging and testing.
 /// Example
-/// ``` rust 
+/// ``` rust
 /// pub use lexical_scanner::*;
 /// pub use enums::*;
 /// let text = "The number 5.0 is > 1;";
-/// let token_list = lexical_scanner::lexer_as_str(text); 
+/// let token_list = lexical_scanner::lexer_as_str(text);
 /// ```
-/// 
+///
 pub fn lexer_as_str(text: &str) -> Vec<Token> {
     let mut token_container = vec![];
     let tokenizer = lexer::lexer::lexer::Tokenizer::new(&text);
