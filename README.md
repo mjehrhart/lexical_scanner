@@ -1,15 +1,19 @@
 # Documentation.
-This complete Lexer/Lexical Scanner produces tokens for a string or a file path entry. The output is a Vector<Token> for the user to handle according to their needs. All tokens are included (including whitespace) as that is left to the user to decide how he or she will use the tokens.
+This complete Lexer/Lexical Scanner produces tokens for a string or a file path entry. The output is a Vector<Token> for the user to handle according to their needs. All tokens are included (including whitespace) as that is left to the user to decide how to use the tokens.
+
+To see an example of an output, check out the wiki page:
+
+https://github.com/mjehrhart/lexical_scanner/wiki/Example
 
 ## Setup
 Add this depedency to TOML
 ``` rust
 [dependencies]
-lexical_scanner = "0.1.11"
+lexical_scanner = "0.1.12"
 ```
 
 ## Basic Usage 
-The two ways to perform a lexical scan is to pass in file path or pass in a string. Passing in a string is mostly used for testing while passing in a file path is common for every day work. A lexical scanner can produces thousand of tokens very quickly. For this reason, it is best to use a file path.
+The two ways to perform a lexical scan is to pass in file path or pass in a string. Passing in a string is mostly used for testing while passing in a file path is common for every day work. A lexical scanner can produces thousands and thousands of tokens very quickly. For this reason, it is best to use a file path.
 ``` rust
 use lexical_scanner;
 
