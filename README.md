@@ -152,3 +152,5 @@ KW_Use,
 KW_Where,
 KW_While,
 ```
+
+crates.io => https://crates.io/crates/lexical_scanner
