@@ -33,7 +33,7 @@ fn read_template(path: &str) -> Result<String, std::io::Error> {
 /// Constructs a vector of tokens.
 /// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
 /// github page. 
-/// Usually, this is used in debugging and testing.
+/// Usually, this is the main method for generating tokens by passing in a file path to the document you want to perform a lexical scan on.
 /// Example
 /// ``` rust 
 /// pub use lexical_scanner::*;
@@ -74,7 +74,7 @@ pub fn lexer(path: &str) -> Vec<Token> {
 /// Constructs a vector of tokens.
 /// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
 /// github page. 
-/// Usually, this is used in debugging and testing.
+/// Usually, passing in a text string is used for debugging and testing.
 /// Example
 /// ``` rust 
 /// pub use lexical_scanner::*;

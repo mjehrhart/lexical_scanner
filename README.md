@@ -4,7 +4,7 @@
 Add this depedency to TOML
 ``` rust
 [dependencies]
-lexical_scanner = "0.1.4"
+lexical_scanner = "0.1.6"
 ```
 
 ## Basic Usage
@@ -16,7 +16,19 @@ fn main() {
     let token_list = lexical_scanner::lexer(&path); 
 }
 ```
-That is all there is to do!  The lexical scanner returns a Vec<Token> for the user to handle as needed. Below is a simple way to view the tokens for unit testing:
+That is all there is to do!  The lexical scanner returns a Vec<Token> for the user to handle as needed. 
+
+To test with a string, all you need to do is call this
+``` rust
+use lexical_scanner;
+
+fn main() {
+    let text = "Water is a good choice of drink!";
+    let token_list = lexical_scanner::lexer_as_str(&text); 
+}
+```
+
+Below is a simple way to view the tokens for unit testing:
 ``` rust
 for (i, token) in token_list.iter().enumerate(){
     println!("{}. {:?}", i, token);
