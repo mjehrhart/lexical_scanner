@@ -1,10 +1,10 @@
 [package]
 name = "lexical_scanner"
-version = "0.1.12"
+version = "0.1.13"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/mjehrhart/lexical_scanner"
-description = "A simple lexer which creates over 75 various tokens based on the rust programming language. This library does not use regex!" 
+description = "A simple lexer which creates over 75 various tokens based on the rust programming language. This complete Lexer/Lexical Scanner produces tokens for a string or a file path entry. The output is a Vector<Token> for the user to handle according to their needs. All tokens are included (including whitespace) as that is left to the user to decide how to use the tokens. This library does not use regex!" 
 keywords = ["lexer", "lexical", "scanlex", "lexical_scanner", "tokenizer"]
 
 [dependencies] 

@@ -9,7 +9,7 @@ https://github.com/mjehrhart/lexical_scanner/wiki/Example
 Add this depedency to TOML
 ``` rust
 [dependencies]
-lexical_scanner = "0.1.12"
+lexical_scanner = "0.1.13"
 ```
 
 ## Basic Usage 
