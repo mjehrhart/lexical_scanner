@@ -29,8 +29,8 @@ fn read_template(path: &str) -> Result<String, std::io::Error> {
     Ok(page.to_string())
 }
 
-pub fn test4() {
-    println!("{}", 400);
+pub fn test5() {
+    println!("{}", 500);
 }
 /// Constructs a vector of tokens.
 /// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
