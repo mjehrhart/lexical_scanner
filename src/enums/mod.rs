@@ -1,6 +1,9 @@
+//! The lexical_scanner procceses supports over 75+ various tokens. All major punctuation patterns 
+//! are supported.
 use std::ops::Deref;
 
-///Token field and description for lexical scanner
+///Token field and description for lexical_scanner
+
 #[allow(
     dead_code,
     clippy::upper_case_acronyms,

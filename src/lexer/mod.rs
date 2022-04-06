@@ -1,2 +1,2 @@
-pub mod lexer;
-pub mod generics;
+pub(crate) mod lexer;
+pub(crate) mod generics;

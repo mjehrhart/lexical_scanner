@@ -1,3 +1,7 @@
+//! The lexical_scanner procceses the user's input and converts to a vector of 75+ various tokens.
+//! Lexical_scanner works using rust Iterator trait.  Using Peekable(), the library can safely 
+//! view and speedily identify character patterns without using regex.
+
 use enums::Token;
 use std::{fs::OpenOptions, io::Read};
 
@@ -6,43 +10,24 @@ pub mod lexer;
 
 #[allow(unused_imports)]
 #[warn(missing_docs)]
-
-fn read_template(path: &str) -> Result<String, std::io::Error> {
-    let mut f = OpenOptions::new()
-        .read(true)
-        .write(false)
-        .open(path)
-        .unwrap();
-
-    let mut buffer: Vec<u8> = Vec::new();
-    let _ensual = match f.read_to_end(&mut buffer) {
-        Ok(_bit_count) => {}
-        Err(e) => {
-            panic!(
-                "let suc = match file_from.read_to_end(&mut buffer)^^^ERROR {:?}",
-                e
-            )
-        }
-    };
-
-    let page = std::str::from_utf8(&buffer).unwrap();
-    Ok(page.to_string())
-}
-
-pub fn test5() {
-    println!("{}", 500);
-}
-/// Constructs a vector of tokens.
-/// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
-/// github page.
-/// Usually, this is the main method for generating tokens by passing in a file path to the document you want to perform a lexical scan on.
-/// Example
+ 
+ 
+/// Converts a file content's to a Vector of Tokens  
+/// Input:: path: &str  
+/// Return -> Vec<Token>   
+/// Typically this is the main method for generating tokens by passing in a file path to the document you want to perform a lexical scan on.  
+/// Example  
 /// ``` rust
 /// pub use lexical_scanner::*;
 /// pub use enums::*;
+/// 
 /// let path = "./test/test.txt";
 /// let token_list = lexical_scanner::lexer(path);
-/// println!("{:?}, ", token_list);
+/// 
+/// //Display tokens
+/// for (i, token) in token_list.iter().enumerate(){
+///     println!("{}. {:?}", i, token);
+/// }
 /// ```
 ///
 pub fn lexer(path: &str) -> Vec<Token> {
@@ -78,16 +63,21 @@ pub fn lexer(path: &str) -> Vec<Token> {
     vec![]
 }
 
-/// Constructs a vector of tokens.
-/// This straight forward lexical scanner is preset to support over 75 tokens.  The list of tokens can be found at this sites
-/// github page.
-/// Usually, passing in a text string is used for debugging and testing.
-/// Example
+/// Converts a string to tokens  
+/// Input:: text: &str  
+/// Return -> Vec<Token>  
+/// This is comonnly used for debugging and testing.  
+/// Example  
 /// ``` rust
 /// pub use lexical_scanner::*;
 /// pub use enums::*;
 /// let text = "The number 5.0 is > 1;";
 /// let token_list = lexical_scanner::lexer_as_str(text);
+/// 
+/// //Display tokens
+/// for (i, token) in token_list.iter().enumerate(){
+///     println!("{}. {:?}", i, token);
+/// }
 /// ```
 ///
 pub fn lexer_as_str(text: &str) -> Vec<Token> {
@@ -114,6 +104,30 @@ pub fn lexer_as_str(text: &str) -> Vec<Token> {
 
     return token_container;
 }
+
+
+fn read_template(path: &str) -> Result<String, std::io::Error> {
+    let mut f = OpenOptions::new()
+        .read(true)
+        .write(false)
+        .open(path)
+        .unwrap();
+
+    let mut buffer: Vec<u8> = Vec::new();
+    let _ensual = match f.read_to_end(&mut buffer) {
+        Ok(_bit_count) => {}
+        Err(e) => {
+            panic!(
+                "let suc = match file_from.read_to_end(&mut buffer)^^^ERROR {:?}",
+                e
+            )
+        }
+    };
+
+    let page = std::str::from_utf8(&buffer).unwrap();
+    Ok(page.to_string())
+}
+
 
 // Unit tests
 #[cfg(test)]

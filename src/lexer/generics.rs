@@ -11,6 +11,7 @@ pub mod generic {
     use std::str::Chars;
     use std::vec::{self, IntoIter};
 
+    /// Struct contains key information for trasnforming special tokens into raw strings and raw byte strings
     #[derive(Debug, Clone)]
     pub struct RawString {
         pub found: bool,
@@ -19,6 +20,7 @@ pub mod generic {
         pub removals: Vec<usize>,
     }
  
+    /// Instanciate a new Lexer
     impl<'a> Tokenizer<'a> {
         pub fn new(new_expr: &'a str) -> Self {
             Tokenizer {
@@ -27,6 +29,8 @@ pub mod generic {
             }
         }
 
+        /// Populate the lexer with keywords
+        /// The default keywords are the same as the rust programming language keywords
         pub fn load_keywords() -> HashMap<&'a str, Token> {
             let mut map: HashMap<&'a str, Token> = HashMap::new();
 
@@ -74,6 +78,7 @@ pub mod generic {
             map
         }
 
+        /// Takes in a &Token and returns a Token
         pub fn translate_token_to_keyword_token(token: &Token, value: String) -> Option<Token> {
             match token {
                 Token::KW_As => Some(Token::KW_As),
@@ -118,13 +123,8 @@ pub mod generic {
                 _ => Some(Token::Word(value)),
             }
         }
-
-        pub fn check_if_keyword(&mut self, potential_keyword: &str) -> Option<&Token> {
-            let token = self.keywords.get(potential_keyword);
-            token
-        }
-
-        /// Transforms tokens into Token::RawString, Token::RawByteString if found
+ 
+        /// Transforms pattern matched tokens into Token::RawString, Token::RawByteString if found 
         pub fn transform_special_tokens_into_raw_byte_tokens(
             mut token_container: Vec<Token>,
         ) -> Vec<Token> {
@@ -242,32 +242,20 @@ pub mod generic {
     }
 
     pub mod numeric {
-        use std::{iter::Peekable, str::Chars};
-
-        //use crate::{enums::Token, lexer::lexer::Tokenizer};
+        use std::{iter::Peekable, str::Chars}; 
         use crate::enums::Token;
         use crate::lexer::lexer::lexer::Tokenizer;
 
         impl<'a> Tokenizer<'a> {
+            /// Check if character is numeric or contains a Dot or Underscore
             pub fn is_numeric_with_dot(c: char) -> bool {
                 c.is_ascii_digit() || c == '.' || c == '_'
             }
 
+            /// Check if character is numeric or contains a Dot or Underscore or Eq
+            /// This is a sub guard used for more detailed matching
             pub fn is_numeric_with_dot_eq_underscore(c: char) -> bool {
                 c.is_ascii_digit() || c == '.' || c == '_' || c == '='
-            }
-
-            pub fn is_math_operator(c: char) -> bool {
-                c == '+'
-                    || c == '-'
-                    || c == '*'
-                    || c == '/'
-                    || c == '%'
-                    || c == '^'
-                    || c == '!'
-                    || c == '&'
-                    || c == '|'
-                    || c == '='
             }
         }
     }
@@ -276,6 +264,7 @@ pub mod generic {
         use crate::enums::Token;
         use crate::lexer::lexer::lexer::Tokenizer;
 
+        /// Check if character is escaped
         //TODO add support for "c == '\x41'""
         impl<'a> Tokenizer<'a> {
             pub fn is_escaped(c: char) -> bool {
@@ -290,6 +279,7 @@ pub mod generic {
                     || c == '\"'
             }
 
+            /// Check if character is a type of bracket
             pub fn bracket_delimiters(c: char) -> bool {
                 c == '{' || c == '[' || c == '(' || c == ')' || c == ']' || c == '}'
             }
@@ -303,7 +293,8 @@ pub mod generic {
         use crate::lexer::lexer::lexer::Tokenizer;
 
         impl<'a> Tokenizer<'a> {
-            // (37) = : :: > >= >> < <= << => += -= *= /= &= ^= &= |= == != + - * / % ^ & && | || ! // /* */ >>= <<= ->
+            /// This is the main method for tokenizing common non string tokens
+            /// (41) = : :: > >= >> < <= << => += -= *= /= &= ^= &= |= == != + - * / % ^ & && | || ! // /* */ >>= <<= -> /// //! /*! /**
             pub fn next_punctuation(
                 mut value: String,
                 mut expression: Peekable<Chars<'a>>,
@@ -419,10 +410,10 @@ pub mod generic {
                     Some("///") => (Some(Token::OuterLineDoc("///".to_string())), 3),
                     Some("//!") => (Some(Token::InnerLineDoc("//!".to_string())), 3), 
                     Some("/*!") => (Some(Token::InnerBlockDoc("/*!".to_string())), 3),
-                    Some("/**") => (Some(Token::OuterBlockDoc("/**".to_string())), 3), 
-
+                    Some("/**") => (Some(Token::OuterBlockDoc("/**".to_string())), 3),  
                     Some("//") => (Some(Token::LineComment("//".to_string())), 2),
                     Some("/*") => (Some(Token::BlockCommentStart("/*".to_string())), 2),
+
                     Some("*/") => (Some(Token::BlockCommentStop("*/".to_string())), 2),
                     //
                     Some(_) => (Some(Token::Stopped(value.clone())), value.len()),
@@ -430,26 +421,23 @@ pub mod generic {
                 }
             }
 
+            /// Check if character is "
             pub fn starts_with_double_quote(c: char) -> bool {
                 c == '"'
             }
-
-            pub fn is_new_line(c: char) -> bool {
-                c == '\r' || c == '\n'
-            }
-
-            pub fn is_statement_delim(c: char) -> bool {
-                c == ';'
-            }
-
+ 
+            /// Check if character is whitespace
             pub fn is_whitespace(c: char) -> bool {
                 c == ' '
             }
 
+            /// Check if character is alphanumeric or underscore
+            /// Words can start with or contain an underscore
             pub fn is_word(c: char) -> bool {
-                c.is_alphanumeric() || c == '_' // || c == '#' || c == '"'
+                c.is_alphanumeric() || c == '_' 
             }
 
+            /// Check if character is a major punctutation
             pub fn is_punctuation(c: char) -> bool {
                 //println!("___________ c is '{}'", &c);
                 c == '.'
@@ -468,6 +456,8 @@ pub mod generic {
                     || c == '<'
             }
 
+            /// Check if character is a lesser punctutation
+            /// Punctuation are split up for ease of control
             pub fn is_lesser_punctutation(c: char) -> bool {
                 c == '@' || c == '_' || c == ',' || c == ';' || c == '#' || c == '$' || c == '?'
             }

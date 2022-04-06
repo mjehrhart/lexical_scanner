@@ -1,4 +1,7 @@
-//!The lexer procceses the input converts to a vector of tokens
+//! The lexical_scanner procceses the user's input and converts to a vector of 75+ various tokens.
+//! Lexical_scanner works using rust Iterator trait. The fn next() allows the library to safely
+//! view and identify character patterns without using regex.
+
 #[allow(
     unused_variables,
     dead_code,
@@ -6,9 +9,9 @@
     unused_imports,
     clippy::module_inception
 )]
+
 pub mod lexer {
     use super::*;
-    //use crate::enums::{self, Token};
     use crate::enums::Token;
     use std::any::type_name;
     use std::collections::HashMap;
@@ -168,7 +171,7 @@ pub mod lexer {
 
                     Some(Token::Numeric(value))
                 }
-                // (37) = : :: > >= >> < <= << => += -= *= /= &= ^= &= |= == != + - * / % ^ & && | || ! // /* */ >>= <<= ->
+                // (41) = : :: > >= >> < <= << => += -= *= /= &= ^= &= |= == != + - * / % ^ & && | || ! // /* */ >>= <<= -> /// //! /*! /**
                 Some(c) if Self::is_punctuation(*c) => {
                     let (token, next_this_times) =
                         Self::next_punctuation(c.to_string(), self.expr.clone());
@@ -232,14 +235,6 @@ pub mod lexer {
                             None => break,
                         }
                     }
-                    /*
-                    Remove this
-                        // //Look for raw strings and raw byte strings
-                        // let check = Self::check_if_raw_string(&value);
-                        // if check.found {
-                        //     println!("'{:?}'", check.kind);
-                        // }
-                     */
                     //Look for keyword tokens
                     let toak = Tokenizer::new("");
                     let flag = toak.keywords.get(&*value);
