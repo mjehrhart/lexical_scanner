@@ -4,7 +4,7 @@ version = "0.1.16"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/mjehrhart/lexical_scanner"
-description = "A simple lexer which creates over 75 various tokens based on the rust programming language. This complete Lexer/Lexical Scanner produces tokens for a string or a file path entry."
+description = "A simple lexer which creates over 115+ various tokens based on the rust programming language. This complete Lexer/Lexical Scanner produces tokens for a string or a file path entry."
 keywords = ["lexer", "lexical", "scanlex", "lexical_scanner", "tokenizer"]
 
 [dependencies] 

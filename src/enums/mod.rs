@@ -1,4 +1,4 @@
-//! The lexical_scanner procceses supports over 75+ various tokens. All major punctuation patterns 
+//! The lexical_scanner procceses supports over 115+ various tokens. All major punctuation patterns 
 //! are supported.
 use std::ops::Deref;
 

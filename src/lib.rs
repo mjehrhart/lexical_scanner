@@ -1,4 +1,4 @@
-//! The lexical_scanner procceses the user's input and converts to a vector of 75+ various tokens.
+//! The lexical_scanner procceses the user's input and converts to a vector of 115+ various tokens.
 //! Lexical_scanner works using rust Iterator trait.  Using Peekable(), the library can safely
 //! view and speedily identify character patterns without using regex.
 

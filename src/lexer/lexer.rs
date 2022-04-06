@@ -1,4 +1,4 @@
-//! The lexical_scanner procceses the user's input and converts to a vector of 75+ various tokens.
+//! The lexical_scanner procceses the user's input and converts to a vector of 115+ various tokens.
 //! Lexical_scanner works using rust Iterator trait. The fn next() allows the library to safely
 //! view and identify character patterns without using regex.
 
@@ -234,7 +234,7 @@ pub mod lexer {
                             }
                             None => break,
                         }
-                    } 
+                    }
 
                     //Check if word is KeyWord
                     let flag = self.keywords.get(&*value);
