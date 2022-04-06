@@ -19,13 +19,19 @@ pub mod generic {
         pub start: usize,
         pub removals: Vec<usize>,
     }
- 
+
     /// Instanciate a new Lexer
     impl<'a> Tokenizer<'a> {
-        pub fn new(new_expr: &'a str) -> Self {
+        pub fn new(new_expr: &'a str, user_keywords: Vec<&'a str>) -> Self {
+            let mut x = Self::load_keywords();
+
+            for user_token in user_keywords {
+                x.insert(user_token, Token::KW_UserDefined(user_token.to_string()));
+            }
+ 
             Tokenizer {
                 expr: new_expr.chars().peekable(),
-                keywords: Self::load_keywords(),
+                keywords: x,
             }
         }
 
@@ -78,6 +84,8 @@ pub mod generic {
             map
         }
 
+        pub fn add_user_defined_keyword() {}
+
         /// Takes in a &Token and returns a Token
         pub fn translate_token_to_keyword_token(token: &Token, value: String) -> Option<Token> {
             match token {
@@ -120,11 +128,12 @@ pub mod generic {
                 Token::KW_Use => Some(Token::KW_Use),
                 Token::KW_Where => Some(Token::KW_Where),
                 Token::KW_While => Some(Token::KW_While),
+                Token::KW_UserDefined(val) => Some(Token::KW_UserDefined(val.to_string())),
                 _ => Some(Token::Word(value)),
             }
         }
- 
-        /// Transforms pattern matched tokens into Token::RawString, Token::RawByteString if found 
+
+        /// Transforms pattern matched tokens into Token::RawString, Token::RawByteString if found
         pub fn transform_special_tokens_into_raw_byte_tokens(
             mut token_container: Vec<Token>,
         ) -> Vec<Token> {
@@ -242,9 +251,9 @@ pub mod generic {
     }
 
     pub mod numeric {
-        use std::{iter::Peekable, str::Chars}; 
         use crate::enums::Token;
         use crate::lexer::lexer::lexer::Tokenizer;
+        use std::{iter::Peekable, str::Chars};
 
         impl<'a> Tokenizer<'a> {
             /// Check if character is numeric or contains a Dot or Underscore
@@ -408,9 +417,9 @@ pub mod generic {
                     Some("!") => (Some(Token::Not), 1),
                     Some("->") => (Some(Token::RArrow), 2),
                     Some("///") => (Some(Token::OuterLineDoc("///".to_string())), 3),
-                    Some("//!") => (Some(Token::InnerLineDoc("//!".to_string())), 3), 
+                    Some("//!") => (Some(Token::InnerLineDoc("//!".to_string())), 3),
                     Some("/*!") => (Some(Token::InnerBlockDoc("/*!".to_string())), 3),
-                    Some("/**") => (Some(Token::OuterBlockDoc("/**".to_string())), 3),  
+                    Some("/**") => (Some(Token::OuterBlockDoc("/**".to_string())), 3),
                     Some("//") => (Some(Token::LineComment("//".to_string())), 2),
                     Some("/*") => (Some(Token::BlockCommentStart("/*".to_string())), 2),
 
@@ -425,7 +434,7 @@ pub mod generic {
             pub fn starts_with_double_quote(c: char) -> bool {
                 c == '"'
             }
- 
+
             /// Check if character is whitespace
             pub fn is_whitespace(c: char) -> bool {
                 c == ' '
@@ -434,7 +443,7 @@ pub mod generic {
             /// Check if character is alphanumeric or underscore
             /// Words can start with or contain an underscore
             pub fn is_word(c: char) -> bool {
-                c.is_alphanumeric() || c == '_' 
+                c.is_alphanumeric() || c == '_'
             }
 
             /// Check if character is a major punctutation

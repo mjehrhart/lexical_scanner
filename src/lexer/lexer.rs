@@ -234,10 +234,10 @@ pub mod lexer {
                             }
                             None => break,
                         }
-                    }
-                    //Look for keyword tokens
-                    let toak = Tokenizer::new("");
-                    let flag = toak.keywords.get(&*value);
+                    } 
+
+                    //Check if word is KeyWord
+                    let flag = self.keywords.get(&*value);
                     match flag {
                         Some(_) => {
                             let token = Self::translate_token_to_keyword_token(

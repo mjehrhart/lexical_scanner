@@ -128,6 +128,7 @@ pub enum Token {
     KW_Union,
     KW_Unsafe,
     KW_Use,
+    KW_UserDefined(String),
     KW_Where,
     KW_While,
 }

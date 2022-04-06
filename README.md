@@ -1,6 +1,10 @@
 # Documentation.
 This complete Lexer/Lexical Scanner produces tokens for a string or a file path entry. The output is a Vector<Token> for the user to handle according to their needs. All tokens are included (including whitespace) as that is left to the user to decide how to use the tokens.
 
+If you have any questions or need help, feel free to add a discussion here:
+
+https://github.com/mjehrhart/lexical_scanner/discussions
+
 To see an example of an output, check out the wiki page:
 
 https://github.com/mjehrhart/lexical_scanner/wiki/Example
@@ -9,7 +13,7 @@ https://github.com/mjehrhart/lexical_scanner/wiki/Example
 Add this depedency to TOML
 ``` rust
 [dependencies]
-lexical_scanner = "0.1.15"
+lexical_scanner = "0.1.16"
 ```
 
 ## Basic Usage 
@@ -29,7 +33,7 @@ To test with a string, all you need to do is call this
 use lexical_scanner;
 
 fn main() {
-    let text = "Water is a good choice of drink!";
+    let text = "The number 5.0 is > 1;";
     let token_list = lexical_scanner::lexer_as_str(&text); 
 }
 ```
@@ -39,6 +43,21 @@ Below is a simple way to view the tokens for unit testing:
 for (i, token) in token_list.iter().enumerate(){
     println!("{}. {:?}", i, token);
 }
+
+output -> 
+0. Word("The")
+1. WhiteSpace
+2. Word("number")
+3. WhiteSpace
+4. Floating("5.0")
+5. WhiteSpace
+6. Word("is")
+7. WhiteSpace
+8. Gt
+9. WhiteSpace
+10. Numeric("1")
+11. Semi
+
 ```
 ## Supported Tokens
 ```
