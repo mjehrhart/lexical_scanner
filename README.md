@@ -13,7 +13,7 @@ https://github.com/mjehrhart/lexical_scanner/wiki/Example
 Add this depedency to TOML
 ``` rust
 [dependencies]
-lexical_scanner = "0.1.17"
+lexical_scanner = "0.1.18"
 ```
 
 ## Basic Usage 
@@ -25,6 +25,90 @@ fn main() {
     let path = "/Users/gues/my_file_to_read_into_tokens/temp.txt";
     let token_list = lexical_scanner::lexer(&path); 
 }
+
+input -> 
+: :: > >= >> < <= << => += -= *= /= &= ^= &= |= == != + - * / % ^ & && | || !  >>= <<= -> /// //! // /* */ /*! /**
+output ->
+0. Colon
+1. WhiteSpace
+2. PathSep
+3. WhiteSpace
+4. Gt
+5. WhiteSpace
+6. Ge
+7. WhiteSpace
+8. Shr
+9. WhiteSpace
+10. Lt
+11. WhiteSpace
+12. Le
+13. WhiteSpace
+14. Shl
+15. WhiteSpace
+16. FatArrow
+17. WhiteSpace
+18. PlusEq
+19. WhiteSpace
+20. MinusEq
+21. WhiteSpace
+22. StarEq
+23. WhiteSpace
+24. SlashEq
+25. WhiteSpace
+26. AndEq
+27. WhiteSpace
+28. CaretEq
+29. WhiteSpace
+30. AndEq
+31. WhiteSpace
+32. OrEq
+33. WhiteSpace
+34. EqEq
+35. WhiteSpace
+36. NotEq
+37. WhiteSpace
+38. Plus
+39. WhiteSpace
+40. Minus
+41. WhiteSpace
+42. Star
+43. WhiteSpace
+44. Slash
+45. WhiteSpace
+46. Percent
+47. WhiteSpace
+48. Caret
+49. WhiteSpace
+50. And
+51. WhiteSpace
+52. AndAnd
+53. WhiteSpace
+54. Or
+55. WhiteSpace
+56. OrOr
+57. WhiteSpace
+58. Not
+59. WhiteSpace
+60. LineComment("//")
+61. WhiteSpace
+62. BlockCommentStart("/*")
+63. WhiteSpace
+64. BlockCommentStop("*/")
+65. WhiteSpace
+66. ShrEq
+67. WhiteSpace
+68. ShlEq
+69. WhiteSpace
+70. RArrow
+71. WhiteSpace
+72. OuterLineDoc("///")
+73. WhiteSpace
+74. InnerLineDoc("//!")
+75. WhiteSpace
+76. InnerBlockDoc("/*!")
+77. WhiteSpace
+78. OuterBlockDoc("/**")
+79. Newline
 ```
 That is all there is to do!  The lexical scanner returns a Vec<Token> for the user to handle as needed. 
 
@@ -72,7 +156,8 @@ fn main() {
 }
 ```
 
-Below is a simple way to view the tokens for unit testing:
+Below is a simple way to view the tokens for unit testing. You can see that "up", "down", left", and "right"
+are have been tokenized into KW_UserDefined(String).
 ``` rust
 for (i, token) in token_list.iter().enumerate(){
     println!("{}. {:?}", i, token);
@@ -232,6 +317,7 @@ KW_UserDefined(String),
 KW_Where,
 KW_While,
 ```
-
-crates.io => https://crates.io/crates/lexical_scanner
-github.com => https://github.com/mjehrhart/lexical_scanner
+  
+crates.io => https://crates.io/crates/lexical_scanner  
+github.com => https://github.com/mjehrhart/lexical_scanner  
+  

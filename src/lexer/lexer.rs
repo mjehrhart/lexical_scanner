@@ -262,4 +262,101 @@ pub mod lexer {
             }
         }
     }
+
+
+    pub mod numeric {
+        use crate::enums::Token;
+        use crate::lexer::lexer::lexer::Tokenizer;
+        use std::{iter::Peekable, str::Chars};
+
+        impl<'a> Tokenizer<'a> {
+            /// Check if character is numeric or contains a Dot or Underscore
+            pub fn is_numeric_with_dot(c: char) -> bool {
+                c.is_ascii_digit() || c == '.' || c == '_'
+            }
+
+            /// Check if character is numeric or contains a Dot or Underscore or Eq
+            /// This is a sub guard used for more detailed matching
+            pub fn is_numeric_with_dot_eq_underscore(c: char) -> bool {
+                c.is_ascii_digit() || c == '.' || c == '_' || c == '='
+            }
+        }
+    }
+
+    pub mod escapes {
+        use crate::enums::Token;
+        use crate::lexer::lexer::lexer::Tokenizer;
+
+        /// Check if character is escaped
+        //TODO add support for "c == '\x41'""
+        impl<'a> Tokenizer<'a> {
+            pub fn is_escaped(c: char) -> bool {
+                //c == '\x41'
+                c == '\n'
+                    || c == '\r'
+                    || c == '\t'
+                    || c == '\\'
+                    || c == '\0'
+                    || c == '\x7F'
+                    || c == '\''
+                    || c == '\"'
+            }
+
+            /// Check if character is a type of bracket
+            pub fn bracket_delimiters(c: char) -> bool {
+                c == '{' || c == '[' || c == '(' || c == ')' || c == ']' || c == '}'
+            }
+        }
+    }
+
+    pub mod generic {
+        use std::{iter::Peekable, str::Chars};
+
+        use crate::enums::Token;
+        use crate::lexer::lexer::lexer::Tokenizer;
+
+        impl<'a> Tokenizer<'a> {
+            /// Check if character is "
+            pub fn starts_with_double_quote(c: char) -> bool {
+                c == '"'
+            }
+
+            /// Check if character is whitespace
+            pub fn is_whitespace(c: char) -> bool {
+                c == ' '
+            }
+
+            /// Check if character is alphanumeric or underscore
+            /// Words can start with or contain an underscore
+            pub fn is_word(c: char) -> bool {
+                c.is_alphanumeric() || c == '_'
+            }
+
+            /// Check if character is a major punctutation
+            pub fn is_punctuation(c: char) -> bool {
+                //println!("___________ c is '{}'", &c);
+                c == '.'
+                    || c == '+'
+                    || c == '-'
+                    || c == '*'
+                    || c == '/'
+                    || c == '%'
+                    || c == '^'
+                    || c == '&'
+                    || c == '|'
+                    || c == '!'
+                    || c == ':'
+                    || c == '>'
+                    || c == '='
+                    || c == '<'
+            }
+
+            /// Check if character is a lesser punctutation
+            /// Punctuation are split up for ease of control
+            pub fn is_lesser_punctutation(c: char) -> bool {
+                c == '@' || c == '_' || c == ',' || c == ';' || c == '#' || c == '$' || c == '?'
+            }
+        }
+    }
+
 }
